@@ -49,12 +49,13 @@ export class BooksAccess {
     }).promise()
   }
 
-  async getBookItem(bookId: string): Promise<BookItem> {
-    logger.info(`Getting book ${bookId} from ${this.booksTable}`)
+  async getBookItem(userId:string, bookId: string): Promise<BookItem> {
+    logger.info(`Getting book ${bookId} ${userId} from ${this.booksTable}`)
 
     const result = await this.docClient.get({
       TableName: this.booksTable,
       Key: {
+        userId,
         bookId
       }
     }).promise()
@@ -64,12 +65,13 @@ export class BooksAccess {
     return item as BookItem
   }
 
-  async deleteBookItem(bookId: string) {
+  async deleteBookItem(userId: string, bookId: string) {
     logger.info(`Deleting BOOK item ${bookId} from ${this.booksTable}`)
 
     await this.docClient.delete({
       TableName: this.booksTable,
       Key: {
+        userId,
         bookId
       }
     }).promise()
@@ -96,12 +98,13 @@ export class BooksAccess {
     }).promise()
   }
 
-  async updateAttachmentUrl(bookId: string, attachmentUrl: string) {
-    logger.info(`Updating attachment URL for book ${bookId} in ${this.booksTable}`)
+  async updateAttachmentUrl(userId: string, bookId: string, attachmentUrl: string) {
+    logger.info(`Updating attachment URL ${attachmentUrl} for book ${bookId} and userId in ${this.booksTable}`)
 
     await this.docClient.update({
       TableName: this.booksTable,
       Key: {
+        userId,
         bookId
       },
       UpdateExpression: 'set attachmentUrl = :attachmentUrl',
