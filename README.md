@@ -21,13 +21,14 @@ Serverless Framework is used to build and deploy the application. Instructions f
 
 ### Auth0
 
-Auth0 is used for authentication and an Auth0 application should be created with asymmetrically encrypted keys (RS256).
+Auth0 is used for frontend-app authentication
 
 ## Getting started
 
 ### Backend
 
 * The backend is deployed on AWS using serverless framework.
+* It's RESTful API uses the Auth0 authorization provider.
 
 1. cd to the backend folder: `cd backend`
 2. Install dependencies: `npm install`
